@@ -28,7 +28,7 @@ class Connector:
                 'csrf_token': html.find('meta', {'name':'csrf_token'}).get('content'),
             }
         except Exception as e:
-            _LOGGER.error('Failed to get CSRF: {0}'.format(e), file=sys.stderr)
+            _LOGGER.error('Failed to get CSRF: {0}'.format(e))
             return None
 
         ## LOGIN ##
@@ -41,7 +41,7 @@ class Connector:
             data = json.loads(re.search('({.*?})', r.text).group(1))
             return (data, s)
         except Exception as e:
-            _LOGGER.error('Failed to login: {0}'.format(e), file=sys.stderr)
+            _LOGGER.error('Failed to login: {0}'.format(e))
             return None
     
     def _disconnect(self, data, s):
@@ -49,7 +49,7 @@ class Connector:
             data = {'csrf':{'csrf_param':data['csrf_param'],'csrf_token':data['csrf_token']}}
             r = s.post('http://{0}/api/system/user_logout'.format(self.host), data=json.dumps(data))
         except Exception as e:
-            _LOGGER.error('Failed to logout: {0}'.format(e), file=sys.stderr)
+            _LOGGER.error('Failed to logout: {0}'.format(e))
     
     def getLanDevices(self):
         (data, s) = self._connect()
@@ -67,7 +67,7 @@ class Connector:
                     })
             return props
         except Exception as e:
-            _LOGGER.error('Failed to get devices: {0}'.format(e), file=sys.stderr)
+            _LOGGER.error('Failed to get devices: {0}'.format(e))
             return False
         finally:
             self._disconnect(data, s)
