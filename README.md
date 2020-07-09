@@ -1,11 +1,15 @@
 # huawei-hg659
 
-Add a short description here!
+Scraper for Huawei HG659 Router to get the connected devices.
 
+## Usage
 
-## Description
-
-A longer description of your project goes here...
+```python
+from huawei_hg659 import Connector
+c = Connector('ip', 'user', 'pass')
+c.getLanDevices()
+# [{host: 'HOSTNAME', ip: 'IP', mac: 'MAC'}]
+```
 
 
 ## Note
