@@ -56,10 +56,15 @@ class Connector:
         try:
             r = s.get('http://{0}/api/system/HostInfo'.format(self.host))
             resp = json.loads(r.text[12:-2])
-            filtered = [x for x in resp if x['Active'] == True]
             props = []
-            for item in filtered:
-                props.append({'hostname': item['HostName'], 'ip': item['IPAddress'], 'mac': item['MACAddress']})
+            for item in resp:
+                props.append(
+                    {
+                        'hostname': item['HostName'], 
+                        'ip': item['IPAddress'], 
+                        'mac': item['MACAddress'],
+                        'active': item['Active']
+                    })
             return props
         except Exception as e:
             _LOGGER.error('Failed to get devices: {0}'.format(e), file=sys.stderr)

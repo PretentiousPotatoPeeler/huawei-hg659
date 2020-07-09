@@ -8,7 +8,7 @@ Scraper for Huawei HG659 Router to get the connected devices.
 from huawei_hg659 import Connector
 c = Connector('ip', 'user', 'pass')
 c.getLanDevices()
-# [{host: 'HOSTNAME', ip: 'IP', mac: 'MAC'}]
+# [{host: 'HOSTNAME', ip: 'IP', mac: 'MAC', active: True|False}]
 ```
 
 
