@@ -55,6 +55,8 @@ class Connector:
         (data, s) = self._connect()
         try:
             r = s.get('http://{0}/api/system/HostInfo'.format(self.host))
+            if r.status_code != 200:
+                return []
             resp = json.loads(r.text[12:-2])
             props = []
             for item in resp:
@@ -68,6 +70,6 @@ class Connector:
             return props
         except Exception as e:
             _LOGGER.error('Failed to get devices: {0}'.format(e))
-            return False
+            return []
         finally:
             self._disconnect(data, s)
